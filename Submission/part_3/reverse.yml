@@ -1,0 +1,8 @@
+version: 1.0
+provider:
+  name: openfaas
+functions:
+  reverse:
+    lang: python3-http
+    handler: ./reverse
+    image: docker.io/itzilya/reverse:latest   
