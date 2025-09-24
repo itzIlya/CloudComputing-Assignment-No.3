@@ -10,7 +10,7 @@ kind installation:
 
 ![image.png](./doc/image.png)
 
-![image.png](./images/image%201.png)
+![image.png](./doc/image%201.png)
 
 setting up a kind cluster and deploying nginx. 
 
@@ -79,45 +79,45 @@ To expose the application I used the **`nodeport`** method because it seemed to 
 
 After deploying nginx i scaled the deployment to three replicas.
 
-![image.png](./images/image%202.png)
+![image.png](./doc/image%202.png)
 
 There were some problems so I had to tear everything down and start again. Below is an image of all the commands I used to create a kind cluster, deploy and scale nginx.
 
-![image.png](./images/image%203.png)
+![image.png](./doc/image%203.png)
 
-![image.png](./images/image%204.png)
+![image.png](./doc/image%204.png)
 
 To make sure everything is working alright we just go to the exposed port specified in the kind-cluster.yaml files to check if nginx is running. I do this using both a curl command opening [localhost:30080](http://localhost:30080) in my browser.
 
-![image.png](./images/image%205.png)
+![image.png](./doc/image%205.png)
 
 Up next we use helm to install applications for monitoring the cluster.
 
-![image.png](./images/image%206.png)
+![image.png](./doc/image%206.png)
 
-![image.png](./images/image%207.png)
+![image.png](./doc/image%207.png)
 
 ![image.png](2f1e78ff-30e8-47a9-ad37-6c4b19372688.png)
 
 After installing them using helm, we forward the ports and then go to port 3000 for graphana and port 9000 for prometheus
 
-![image.png](./images/image%208.png)
+![image.png](./doc/image%208.png)
 
-![image.png](./images/image%209.png)
+![image.png](./doc/image%209.png)
 
-![image.png](./images/image%2010.png)
+![image.png](./doc/image%2010.png)
 
 And then here is the prometheus dashboard (I took the screenshots after finishing part 4 of the homework)
 
-![image.png](./images/image%2011.png)
+![image.png](./doc/image%2011.png)
 
-![image.png](./images/image%2012.png)
+![image.png](./doc/image%2012.png)
 
-![image.png](./images/image%2013.png)
+![image.png](./doc/image%2013.png)
 
 And finally here is the lens dashboard in the overview tab. The cluster name was `kind-cloud-hw` :
 
-![image.png](./images/image%2014.png)
+![image.png](./doc/image%2014.png)
 
 In this homework kind seems to act as a Kubernetes-construction kit that uses **one Docker container per Kubernetes node**.
 
@@ -169,7 +169,7 @@ Helm is the package manager fgor Kuberneetes.
 
 This seems like a decent tool to monitor the kubernetes cluster. It gives stats and pretty much unifies everything one needs to know about the cluster into an easy to use UI. So instead of just spamming `kubectl` I can just go to the ui and view everything there. like i can enter a `kubectl` command or just go to the workloads>Pods tab and view the available pods and their stats there:
 
-![image.png](./images/image%2015.png)
+![image.png](./doc/image%2015.png)
 
 Alright then, that is it for part 1 & 2 of the homework. Moving on…
 
@@ -181,21 +181,21 @@ We used the helm package manager for kubernetes to install OpenFaaS.
 
 ![image.png](9e45cab8-0f9c-4dd0-a7a0-e5017c677fe6.png)
 
-![image.png](./images/image%2016.png)
+![image.png](./doc/image%2016.png)
 
-![image.png](./images/image%2017.png)
+![image.png](./doc/image%2017.png)
 
 As we can see in the above image, after installing OpenFaaS, the platform tells us that we can get the password using the command `echo $(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)` however, that command doesn’t properly work for windows so i got another command that does the job shown in the below image.
 
-![image.png](./images/image%2018.png)
+![image.png](./doc/image%2018.png)
 
 Okay so we now have a password that we can use for our admin serverless platform later on.
 
-![image.png](./images/image%2019.png)
+![image.png](./doc/image%2019.png)
 
 Finally, we forward the port 8080 from the contrainer to 8081 so that we can access the openfaas UI via our browser.
 
-![image.png](./images/image%2020.png)
+![image.png](./doc/image%2020.png)
 
 using the username `admin`  adn the password given to us we login to the UI. We can see there are currently no functions available. So now we have to write a simple function and deploy it on the serverless platform.
 
@@ -205,11 +205,11 @@ we go to the store list to see a bunch of available templates to create a functi
 faas-cli template store list
 ```
 
-![image.png](./images/image%2021.png)
+![image.png](./doc/image%2021.png)
 
 we choose python3-http template
 
-![image.png](./images/image%2022.png)
+![image.png](./doc/image%2022.png)
 
 okay the template creates a directory named reverse which has a sample handler inside and also creates a **stack.yaml file which i renamed to reverse.yml.**
 
@@ -237,23 +237,23 @@ def handle(event, context):
 
 ```
 
-![image.png](./images/image%2023.png)
+![image.png](./doc/image%2023.png)
 
-![image.png](./images/image%2024.png)
+![image.png](./doc/image%2024.png)
 
-![image.png](./images/image%2025.png)
+![image.png](./doc/image%2025.png)
 
 the above images show that we deployed the handler. 
 
 We then tested it in the final image by sending a string ( “Hello World”) and say that it returned the reversed string.
 
-![image.png](./images/image%2026.png)
+![image.png](./doc/image%2026.png)
 
 We also tested the function using the OpenFaaS UI and saw that it worked.
 
-![image.png](./images/image%2027.png)
+![image.png](./doc/image%2027.png)
 
-![image.png](./images/image%2028.png)
+![image.png](./doc/image%2028.png)
 
 The above shows the metrics for the control plane inside lens. (I didn’t know what you really wanted to see when you said “check the cluster status in lens” since there a lot of tabs in lens but I just put the images anyway…)
 
@@ -263,21 +263,21 @@ And that is it for part 3. We deployed openfaas on our cluster, uploaded a simpl
 
 To install ray on the cluster, we use helm:
 
-![image.png](./images/image%2029.png)
+![image.png](./doc/image%2029.png)
 
-![image.png](./images/image%2030.png)
+![image.png](./doc/image%2030.png)
 
 Okay now we just check to see if we have a ray cluster:
 
-![image.png](./images/image%2031.png)
+![image.png](./doc/image%2031.png)
 
 Everything seems to be okay so we checkout the pods:
 
-![image.png](./images/image%2032.png)
+![image.png](./doc/image%2032.png)
 
 At the time i took this image, the pods were not ready yet (I think they were still being pulled) so I waited like 15 minutes and then once they were ready, allowed access to port ***8265* (it was in the ray docks)**
 
-![image.png](./images/image%2033.png)
+![image.png](./doc/image%2033.png)
 
 Now the following screenshots show the deployment of the ray job. TO my understanding, there are two ray pods working here. One of them is head node and the other one is the worker node. We can see both of them in [the above image](https://www.notion.so/Cloud-final-HW-208fff288ff1803389b1f64cd10dbc52?pvs=21). I followed the official documentation of ray from here: [https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/raycluster-quick-start.html#kuberay-raycluster-quickstart](https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/raycluster-quick-start.html#kuberay-raycluster-quickstart) which in step 4 in that page, it shows how to run an application on a ray cluster. I followed method 2 ([https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/raycluster-quick-start.html#method-2-submit-a-ray-job-to-the-raycluster-using-ray-job-submission-sdk](https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/raycluster-quick-start.html#method-2-submit-a-ray-job-to-the-raycluster-using-ray-job-submission-sdk)**)** which allows us to “Submit a Ray job to the RayCluster using [ray job submission SDK](https://docs.ray.io/en/latest/cluster/running-applications/job-submission/quickstart.html#jobs-quickstart)”.
 
@@ -333,17 +333,17 @@ if __name__ == "__main__":
 
 Now the crawler uses the beautiful soup and the requests library so i had to make sure the dependencies were already installed on the ray pods which are the head node and the worker node (I’m not sure whether it was necessary to install the dependencies on the head node but I did it anyway)
 
-![image.png](./images/image%2034.png)
+![image.png](./doc/image%2034.png)
 
 After a whole bunch of bugs and whole bunch of tries I finally got the job running which I tracked the progress through the ray UI as shown below. The job took about 4 minutes and the crawler went to almost a thousand links during that 5 minute period.
 
-![image.png](./images/image%2035.png)
+![image.png](./doc/image%2035.png)
 
-![image.png](./images/image%2036.png)
+![image.png](./doc/image%2036.png)
 
-![image.png](./images/image%2037.png)
+![image.png](./doc/image%2037.png)
 
-![image.png](./images/image%2038.png)
+![image.png](./doc/image%2038.png)
 
 ```jsx
 2025-06-05 13:20:57,739 INFO job_manager.py:530 -- Runtime env is setting up.
@@ -362,9 +362,9 @@ not gonna lie I kinda played it the lazy way and just manually installed the pac
 
 I did so by checking the pod names and then using the exec command to install beautiful soup and ray
 
-![image.png](./images/image%2039.png)
+![image.png](./doc/image%2039.png)
 
-![image.png](./images/image%2040.png)
+![image.png](./doc/image%2040.png)
 
 ```powershell
 <SNIP>
@@ -381,15 +381,15 @@ Collecting soupsieve>1.2 (from beautifulsoup4==4.11.1)
 
 below is the status for the head of the ray cluster for the past 24 hours
 
-![image.png](./images/image%2041.png)
+![image.png](./doc/image%2041.png)
 
 and here is when i was running the job (around midnight)
 
-![image.png](./images/image%2042.png)
+![image.png](./doc/image%2042.png)
 
 and then the worker:
 
-![image.png](./images/image%2043.png)
+![image.png](./doc/image%2043.png)
 
 and that is it… moving on to compare ray and serverless
 
