@@ -2,7 +2,7 @@
 
 # Abstract
 
-This is a PDF of a notion document for Homework 2 of the Cloud_Computing-Spring-2025 course at Shiraz University located [here](https://github.com/mmRoshani/cloud-computing-2025/tree/main/homeworks/third). 
+This is a PDF of a notion document for Assignment 3 of the Cloud_Computing-Spring-2025 course at Shiraz University located [here](https://github.com/mmRoshani/cloud-computing-2025/tree/main/homeworks/third). 
 
 # Parts 1 & 2
 
